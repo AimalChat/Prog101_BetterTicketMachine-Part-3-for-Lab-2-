@@ -67,33 +67,63 @@ from the naive-ticket-machine project with that of the better-ticket-machine
 to see whether you can tell what those differences are. Then check your 
 understanding by experimenting within BlueJ.
 
-51b.Firstly, there is now a conditional statement
+51b.Firstly, there is now a conditional statement that checks if the value
+stored in the field : "balance" is greater than or equal to the value stored 
+in the filed "price". If yes, print out ticket. If not, print out message :
+"You must insert at least %d more cents.%n". Second, the total is now
+calculated by adding the price value to the total value, instead of adding the
+balance value to the total value. Lastly, as to the old machine who would wipe 
+thebalance clean after print the ticket, the better machine now subtracts the
+price of the ticket from the balance value.
 
 52a.Is it possible to remove the else part of the if statement in the 
-printTicket method (i.e., remove the wordelse and the block attached to it)? 
+printTicket method (i.e., remove the word else and the block attached to it)? 
 Try doing this and seeing if the code still compiles. What happens now if you 
 try to print a ticket without inserting any money?
 
-52b.
+52b.It is possible and it even compiles according to Java. Nothing happens.
 
 53a.After a ticket has been printed, could the value in the balance field ever 
 be set to a negative value by subtracting price from it? Justify your answer.
 
-53b.
+53b.No, becasue the conditional statement requires there be more or enough
+credits to print a ticket. If I did try printing, the lowest id be able to
+go in my balance is 0 wihtout being able to reach the negatives. In the end,
+the machine requires credits and when you spend those, there are no loopholes
+that I could exploit to acheive this endeavour.
 
-54a.
+54a.So far, we have introduced you to two arithmetic operators, + and -, that 
+can be used in arithmetic expressions in Java. Take a look at the textbook’s 
+Appendix C to find out what other operators are available.
 
 54b.
++ addition
+— subtraction
+* multiplication
+/ division
+% modulus, or remainder after division
 
 55a.Write an assignment statement that will store the result of multiplying 
 two variables, price and discount,into a third variable, saving.
 
 55b.
+public int showSavings()
+{
+int saving;
+saving = price * discount;
+return saving;
+}
 
 56a.Write an assignment statement that will divide the value in total by the 
 value in count and store the result in mean.
 
 56b.
+public int showMean()
+{
+int mean;
+mean = total/count;
+return mean;
+}
 
 57a. Add the following method to the class:
 public void affordable(int budget){
@@ -101,18 +131,36 @@ public void affordable(int budget){
 // a message saying weather a ticket is affordable
 }
 In the body of this method, write an if statement that will compare the value 
-in price against the value inbudget. If price is greater than budget, then 
+in price against the value in budget. If price is greater than budget, then 
 print the message “Too expensive”; otherwise print the message “Just right”. 
 Test your method.
 
 57b.
+public void affordable(int budget)
+    {
+        if (budget <= price){
+            System.out.println("Too expensive.");
+        }
+        else {
+            System.out.println("Just right!");
+        }
+    }
 
 58a.Modify your answer to the previous exercise so that the message includes 
 the value of your budget if the price is too high. Write two different 
-versions: one using and one using . Which version do you find easier to 
-understand?
+versions: one using and one using(Use what????). Which version do you find 
+easier to understand?
 
 58b.
+public void affordable(int budget)
+    {
+        if (budget <= price){
+            System.out.println("Too expensive, your budget is only : " + budget);
+        }
+        else {
+            System.out.println("Just right!");
+        }
+    }
 
 59a.Why does the following version of refundBalance not give the same results 
 as the original?
@@ -123,7 +171,16 @@ return balance;
 }
 What tests can you run to demonstrate that it does not?
 
-59b.
+59b. It simply returns/displays the value stored in the field "balance",
+which was stated to be 0, so it simply shows the new value of said
+variable. A test that can properly demonstrate the differences are
+doing as usual on both the new refundBalance method and original method
+side by side. After insterting both 1000 credits in the machines, I check
+the balance of both and a clear difference can be seen. The modified
+machine displayed 0 even though it should have been 900. Thankfully, the
+original machine displays 900, the correct ammount in my balance after
+prchasing the ticket. The first wiped my balance clean whilst the other
+showed the ammount I wanted refunded.I
 
 60a.What happens if you try to compile the TicketMachine class with the 
 following version of refundBalance?
@@ -135,7 +192,9 @@ balance = 0;
 What do you know about return statements that helps to explain why this 
 version does not compile?
 
-60b.
+60b.After a return statement, the rest of the method will be skipped
+over, since when a return method is called it is always the last one 
+Java will execute, nothing else will be computed.
 
 61a.Challenge exercise Carefully compare the following constructor with 
 the original one from TicketMachine. What is different in this version?
@@ -150,7 +209,7 @@ version compile? Create an object and then inspect its fields. Do you notice
 something wrong about the value of the price field in the inspector with this 
 version? Can you explain why this is?
 
-61b.
+61b.They mixed up price and cost
 
 62a.Add a new method, emptyMachine, that is designed to simulate emptying 
 the machine of money. It should reset total to be zero but also return the 
