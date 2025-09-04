@@ -209,7 +209,13 @@ version compile? Create an object and then inspect its fields. Do you notice
 something wrong about the value of the price field in the inspector with this 
 version? Can you explain why this is?
 
-61b.They mixed up price and cost
+61b.Yes, it does compile. However when invoking the getPrice method, it returned
+with the value "0". even though I inputted 100. I think this is because the added
+"int" at the first line of the body, which was originally "price = cost;" ,
+makes it so that there isnt a value being compared to another, but rather a
+parameter with a value. Since we never gave a value to said parameter inside the
+body or the one named "int price", it defaulted to 0 as does every other
+int type of data when not getting attributed a value to store by the caller.
 
 62a.Add a new method, emptyMachine, that is designed to simulate emptying 
 the machine of money. It should reset total to be zero but also return the 
