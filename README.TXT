@@ -222,18 +222,55 @@ the machine of money. It should reset total to be zero but also return the
 value that was stored in total before it was reset.
 
 62b.
+/**
+    *empty the machine of money and show how much was collected
+    */
+    public int emptyMachine()
+    {
+        int collectedCredits;
+        collectedCredits = total;
+        total = 0;
+        return collectedCredits;
+    }
 
 63a.Rewrite the printTicket method so that it declares a local variable, 
 amountLeftToPay. This should then be initialized to contain the difference 
 between price and balance. Rewrite the test in the conditional statement 
 to check the value of amountLeftToPay. If its value is less than or equal 
 to zero, a ticket should be printed; otherwise, an error message should be 
-printed stating the amount left to pay. Test yourversion to ensure that it 
+printed stating the amount left to pay. Test your version to ensure that it 
 behaves in exactly the same way as the original version. Make sure that you call
 the method more than once, when the machine is in different states, so that both
-parts of the conditionalstatement will be executed on separate occasions.
+parts of the conditional statement will be executed on separate occasions.
 
 63b.
+/**
+     * Print a ticket if enough money has been inserted, and
+     * reduce the current balance by the ticket price. Print
+     * an error message if more money is required.
+     */
+    public void printTicket()
+    {
+        int amountLeftToPay = price - balance;
+        if(amountLeftToPay <= 0) {
+            // Simulate the printing of a ticket.
+            System.out.println("##################");
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + price + " cents.");
+            System.out.println("##################");
+            System.out.println();
+
+            // Update the total collected with the price.
+            total = total + price;
+            // Reduce the balance by the price.
+            balance = balance - price;
+        }
+        else {
+            System.out.printf("You must insert at least %d more cents.%n",
+                              amountLeftToPay);
+        }
+    }
 
 64a.Challenge exercise Suppose we want a TicketMachine object to be able to
 issue a ticket at a discounted price; such as for half price. A user might 
@@ -247,4 +284,149 @@ you think that many of the existing methods would need to be changed as well?
 Save the better-ticket-machine project under a new name and implement your 
 changes in the new project.
 
-64b.
+64b.Took me over 6 hours, I dont feel well.
+public class TicketMachine
+{
+    // The price of a ticket from this machine.
+    private int price;
+    // The amount of money entered by a customer so far.
+    private int balance;
+    // The total amount of money collected by this machine.
+    private int total;
+    //The toggle for discounted ticket price.
+    private boolean discount;
+    //The price of discounted tickets
+    private int discountedPrice;
+
+    /**
+     * Create a machine that issues tickets of the given price.
+     */
+    public TicketMachine(int cost)
+    {
+        price = cost;
+        balance = 0;
+        total = 0;
+        discount = false;
+        discountedPrice = price/2;
+    }
+
+    /**
+    *Apply the discount to ticket price.
+    */
+    public boolean applyDiscount()
+    {
+        discount = true;
+        return discount;
+    }
+    
+    /**
+    *Compare budget to price of ticket.
+    */
+    public void affordable(int budget){
+    
+        if (budget <= price){
+            System.out.println("Too expensive, your budget is only : " + budget);
+        }
+        else {
+            System.out.println("Just right!");
+        }
+    }
+
+    /**
+    *empty the machine of money and show how much was collected
+    */
+    public int emptyMachine()
+    {
+        int collectedCredits;
+        collectedCredits = total;
+        total = 0;
+        return collectedCredits;
+    }
+
+    /**
+     * @Return The price of a ticket.
+     */
+    public int getPrice()
+    {
+        return price;
+    }
+
+    /**
+     * Return The amount of money already inserted for the next ticket.
+     */
+    public int getBalance()
+    {
+        return balance;
+    }
+
+    /**
+    *@Return The price of a discounted ticket.
+    */
+    public int getDiscountPrice()
+    {
+        return discountedPrice;
+    }
+
+    /**
+     * Receive an amount of money from a customer.
+     * Check that the amount is sensible.
+     */
+    public void insertMoney(int amount)
+    {
+        if(amount > 0) {
+            balance = balance + amount;
+        }
+        else {
+            System.out.println("Use a positive amount rather than: " + amount);
+        }
+    }
+
+    /**
+     * Print a ticket if enough money has been inserted, and
+     * reduce the current balance by the ticket price. Print
+     * an error message if more money is required.
+     */
+    public void printTicket()
+    {
+        int currentPrice;
+        if(discount){
+            currentPrice = discountedPrice;
+        }
+        else{
+            currentPrice = price;
+        }
+        int amountLeftToPay = currentPrice - balance;
+        if(amountLeftToPay <= 0) {
+            // Simulate the printing of a ticket.
+            System.out.println("##################");
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + currentPrice + " cents.");
+            System.out.println("##################");
+            System.out.println();
+
+            // Update the total collected with the price.
+            total = total + currentPrice;
+            // Reduce the balance by the price.
+            balance = balance - currentPrice;
+            //Remove the discount for next ticket.
+            discount = false;
+        }
+        else {
+            System.out.printf("You must insert at least %d more cents.%n",
+                              amountLeftToPay);
+        }
+    }
+
+    /**
+     * Return the money in the balance.
+     * The balance is cleared.
+     */
+    public int refundBalance()
+    {
+        int amountToRefund;
+        amountToRefund = balance;
+        balance = 0;
+        return amountToRefund;
+    }
+}
