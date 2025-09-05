@@ -29,6 +29,19 @@ public class TicketMachine
     }
 
     /**
+    *Compare budget to price of ticket.
+    */
+    public void affordable(int budget)
+    {
+        if (budget <= price){
+            System.out.println("Too expensive.");
+        }
+        else {
+            System.out.println("Just right!");
+        }
+    }
+
+    /**
      * @Return The price of a ticket.
      */
     public int getPrice()
