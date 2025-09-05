@@ -118,7 +118,7 @@ public class TicketMachine
         else{
             currentPrice = price;
         }
-        amountLeftToPay = currentPrice - balance;
+        int amountLeftToPay = currentPrice - balance;
         if(amountLeftToPay <= 0) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
